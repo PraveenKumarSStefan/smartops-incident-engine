@@ -1,0 +1,23 @@
+splunk:
+  host: "https://your-splunk-host:8089"
+  token: "YOUR_SPLUNK_API_TOKEN"
+  search_query: "index=prod sourcetype=application ERROR | stats count as error_count, sum(count) as total by service | eval error_rate=error_count/total"
+  poll_interval_seconds: 60
+
+prometheus:
+  host: "http://your-prometheus-host:9090"
+  poll_interval_seconds: 30
+
+slack:
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+  war_room_channel: "#production-incidents"
+
+ansible:
+  playbook_dir: "./ansible"
+  inventory: "./ansible/inventory.ini"
+
+thresholds:
+  p1_error_rate: 0.10
+  p2_error_rate: 0.05
+  p3_error_rate: 0.01
+  dedup_window_minutes: 15
